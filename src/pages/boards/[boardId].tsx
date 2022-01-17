@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, Heading } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Heading, VStack } from "@chakra-ui/react";
 import { NextPage, NextPageContext } from "next";
 import buildClient from "../../api/buildClient";
 
@@ -7,7 +7,6 @@ interface BoardShowProps {
 }
 
 const BoardShow: NextPage<BoardShowProps> = ({ board }) => {
-  console.log(board);
   return (
     <Box>
       <Box>BOARD SHOW</Box>
@@ -15,6 +14,11 @@ const BoardShow: NextPage<BoardShowProps> = ({ board }) => {
         {board.lists.map((list) => (
           <GridItem key={list.id}>
             <Heading>{list.title}</Heading>
+            <VStack align="start">
+              {list.cards.map((card) => (
+                <Box>{card.title}</Box>
+              ))}
+            </VStack>
           </GridItem>
         ))}
       </Grid>
