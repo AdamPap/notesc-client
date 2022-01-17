@@ -19,6 +19,7 @@ interface List {
   id: number;
   title: string;
   content: string;
+  cards: Card[];
   createdAt: string;
   updatedAt: string;
 }
