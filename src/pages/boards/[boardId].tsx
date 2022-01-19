@@ -1,6 +1,7 @@
 import { Box, Grid, GridItem, Heading, VStack } from "@chakra-ui/react";
 import { NextPage, NextPageContext } from "next";
 import buildClient from "../../api/buildClient";
+import { List } from "../../components/List";
 
 interface BoardShowProps {
   board: Board;
@@ -9,16 +10,10 @@ interface BoardShowProps {
 const BoardShow: NextPage<BoardShowProps> = ({ board }) => {
   return (
     <Box>
-      <Box>BOARD SHOW</Box>
-      <Grid templateColumns="repeat(5, 1fr)">
+      <Grid templateColumns="repeat(5, 1fr)" gap={2} mt={3}>
         {board.lists.map((list) => (
           <GridItem key={list.id}>
-            <Heading>{list.title}</Heading>
-            <VStack align="start">
-              {list.cards.map((card) => (
-                <Box>{card.title}</Box>
-              ))}
-            </VStack>
+            <List cards={list.cards} listTitle={list.title} />
           </GridItem>
         ))}
       </Grid>
