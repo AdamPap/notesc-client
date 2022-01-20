@@ -10,7 +10,7 @@ interface BoardShowProps {
 const BoardShow: NextPage<BoardShowProps> = ({ board }) => {
   return (
     <Box>
-      <Grid templateColumns="repeat(5, 1fr)" gap={2} mt={3}>
+      <Grid templateColumns="repeat(5, 1fr)" gap={2} m={3}>
         {board.lists.map((list) => (
           <GridItem key={list.id}>
             <List cards={list.cards} listTitle={list.title} />

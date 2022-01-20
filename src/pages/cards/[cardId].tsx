@@ -1,9 +1,7 @@
 import { Box } from "@chakra-ui/react";
-import { AxiosInstance } from "axios";
 import { NextPage, NextPageContext } from "next";
 import React from "react";
 import buildClient from "../../api/buildClient";
-import { MyContext } from "../_app";
 
 interface CardShowProps {
   card?: Card;
