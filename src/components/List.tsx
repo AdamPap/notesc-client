@@ -10,7 +10,7 @@ interface ListProps {
 export const List: React.FC<ListProps> = ({ cards, listTitle }) => {
   return (
     <Box shadow="md" bg="teal.100" rounded="md" p={2}>
-      <Heading size="md" p={1}>
+      <Heading color="teal.900" size="md" p={1}>
         {listTitle}
       </Heading>
       <VStack>
