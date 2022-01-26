@@ -4,6 +4,7 @@ import {
   ButtonGroup,
   Flex,
   IconButton,
+  Input,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -17,6 +18,7 @@ import {
 import { Field, Form, Formik } from "formik";
 import React, { useRef, useState } from "react";
 import { MdModeEditOutline } from "react-icons/md";
+import InputField from "./InputField";
 
 interface CardProps {
   cardTitle: string;
@@ -24,12 +26,14 @@ interface CardProps {
 
 export const Card: React.FC<CardProps> = ({ cardTitle }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const initialFocusRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   return (
     <Box shadow="sm" rounded="md" bg="white" w="100%" p={1}>
       <Flex role="group" position="relative" py={2} px={3}>
         <Text>{cardTitle}</Text>
         <Popover
+          initialFocusRef={initialFocusRef}
           returnFocusOnClose={false}
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
@@ -61,13 +65,12 @@ export const Card: React.FC<CardProps> = ({ cardTitle }) => {
                 }}
               >
                 <Form>
-                  <Flex>
-                    <Box mr={2}>
-                      <label htmlFor="cardTitle">Title</label>
-                    </Box>
-                    <Field id="cardTitle" name="cardTitle" type="text" />
-                  </Flex>
-                  <Button size="sm" colorScheme="teal" type="submit">
+                  <InputField
+                    ref={initialFocusRef}
+                    name="cardTitle"
+                    label="Title"
+                  />
+                  <Button mt={1} size="sm" colorScheme="teal" type="submit">
                     Submit
                   </Button>
                 </Form>
@@ -80,7 +83,9 @@ export const Card: React.FC<CardProps> = ({ cardTitle }) => {
             </PopoverBody>
             <PopoverFooter d="flex" justifyContent="flex-end">
               <ButtonGroup size="sm">
-                <Button variant="outline">Cancel</Button>
+                <Button colorScheme="teal" variant="outline">
+                  Cancel
+                </Button>
                 <Button colorScheme="red">Apply</Button>
               </ButtonGroup>
             </PopoverFooter>

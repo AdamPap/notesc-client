@@ -12,24 +12,26 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
 };
 
-export const InputField: React.FC<InputFieldProps> = ({
-  label,
-  size: _,
-  ...props
-}) => {
-  const [field, { error }] = useField(props);
+const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
+  (props, ref) => {
+    const [field, { error }] = useField(props);
 
-  return (
-    <FormControl isInvalid={!!error}>
-      <FormLabel htmlFor={field.name}>{label}</FormLabel>
-      <Input
-        {...field}
-        {...props}
-        id={field.name}
-        borderColor="teal.300"
-        variant="outline"
-      />
-      {error ? <FormErrorMessage>{error}</FormErrorMessage> : null}
-    </FormControl>
-  );
-};
+    return (
+      <FormControl isInvalid={!!error} display="flex" alignItems="center">
+        <Input
+          ref={ref}
+          {...field}
+          {...props}
+          size="sm"
+          id={field.name}
+          borderColor="teal.300"
+          variant="flushed"
+          mb={2}
+        />
+        {error ? <FormErrorMessage>{error}</FormErrorMessage> : null}
+      </FormControl>
+    );
+  }
+);
+
+export default InputField;
