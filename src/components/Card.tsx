@@ -3,6 +3,7 @@ import {
   Button,
   ButtonGroup,
   Flex,
+  Heading,
   IconButton,
   Input,
   Popover,
@@ -22,9 +23,10 @@ import InputField from "./InputField";
 
 interface CardProps {
   cardTitle: string;
+  cardContent: string;
 }
 
-export const Card: React.FC<CardProps> = ({ cardTitle }) => {
+export const Card: React.FC<CardProps> = ({ cardTitle, cardContent }) => {
   const [isOpen, setIsOpen] = useState(false);
   const initialFocusRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
@@ -54,41 +56,57 @@ export const Card: React.FC<CardProps> = ({ cardTitle }) => {
               icon={<MdModeEditOutline />}
             />
           </PopoverTrigger>
-          <PopoverContent bg="white">
-            <PopoverHeader fontWeight="semibold">
-              <Formik
-                initialValues={{
-                  cardTitle: cardTitle,
-                }}
-                onSubmit={(values) => {
-                  console.log(values);
-                }}
-              >
-                <Form>
-                  <InputField
+          <PopoverContent bg="white" shadow="lg" position="relative">
+            <Flex flexDirection="column" position="absolute" left="104%">
+              <Button colorScheme="green">Open Card</Button>
+              <Button mt={2} colorScheme="green">
+                Edit labels
+              </Button>
+              <Button mt={2} colorScheme="green">
+                Edit dates
+              </Button>
+              <Button mt={2} colorScheme="green">
+                Archive
+              </Button>
+            </Flex>
+            <Formik
+              initialValues={{
+                cardTitle: cardTitle,
+                cardContent: cardContent,
+              }}
+              onSubmit={(values) => {
+                console.log(values);
+              }}
+            >
+              <Form>
+                <PopoverHeader fontWeight="semibold">
+                  {/* <InputField
                     ref={initialFocusRef}
+                    variant="flushed"
                     name="cardTitle"
                     label="Title"
+                  /> */}
+                  <Heading size="md">{cardTitle}</Heading>
+                </PopoverHeader>
+                <PopoverArrow bg="white" />
+                <PopoverCloseButton />
+                <PopoverBody>
+                  <InputField
+                    ref={initialFocusRef}
+                    variant="unstyled"
+                    name="cardContent"
+                    label="Content"
                   />
-                  <Button mt={1} size="sm" colorScheme="teal" type="submit">
-                    Submit
-                  </Button>
-                </Form>
-              </Formik>
-            </PopoverHeader>
-            <PopoverArrow bg="white" />
-            <PopoverCloseButton />
-            <PopoverBody>
-              Are you sure you want to continue with your action?
-            </PopoverBody>
-            <PopoverFooter d="flex" justifyContent="flex-end">
-              <ButtonGroup size="sm">
-                <Button colorScheme="teal" variant="outline">
-                  Cancel
-                </Button>
-                <Button colorScheme="red">Apply</Button>
-              </ButtonGroup>
-            </PopoverFooter>
+                </PopoverBody>
+                <PopoverFooter d="flex" justifyContent="flex-end">
+                  <ButtonGroup size="sm">
+                    <Button colorScheme="blue" type="submit">
+                      Save
+                    </Button>
+                  </ButtonGroup>
+                </PopoverFooter>
+              </Form>
+            </Formik>
           </PopoverContent>
         </Popover>
       </Flex>
