@@ -10,6 +10,7 @@ import React, { InputHTMLAttributes } from "react";
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
   name: string;
+  variant: string;
 };
 
 const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
@@ -25,7 +26,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
           size="sm"
           id={field.name}
           borderColor="teal.300"
-          variant="flushed"
+          variant={props.variant}
           mb={2}
         />
         {error ? <FormErrorMessage>{error}</FormErrorMessage> : null}
